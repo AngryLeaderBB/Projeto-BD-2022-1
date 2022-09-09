@@ -1,24 +1,21 @@
 -- limpando banco
-DROP DATABASE IF EXISTS Academia;
+DROP DATABASE IF EXISTS academia;
 
 -- criando banco
-CREATE DATABASE Academia;
-USE Academia;
+CREATE DATABASE academia;
+USE academia;
 
 -- inserindo tabelas
 
 -- ##########################################################################
 CREATE TABLE Gerente(
-	Telefone INT NOT NULL,
-	Nome VARCHAR(50) NOT NULL,
 	Cpf VARCHAR(11) NOT NULL,
-	Salario DECIMAL(10,2) NOT NULL,
+    Nome VARCHAR(50) NOT NULL,
+    Salario DECIMAL(10,2) NOT NULL,
 	Sexo CHAR(1) NOT NULL,
-	Idade INT NOT NULL
+    Telefone VARCHAR(11) NOT NULL,
+	Data_nascimento DATE NOT NULL
 );
-
--- FLOAT -> DECIMAL
--- VARCHAR(20) -> VARCHAR(11)
 
 ALTER TABLE Gerente ADD CONSTRAINT PK_GERENTE PRIMARY KEY (Cpf);
 
@@ -26,35 +23,27 @@ ALTER TABLE Gerente ADD CONSTRAINT PK_GERENTE PRIMARY KEY (Cpf);
 
 CREATE TABLE Plano(
 	Id INT NOT NULL,
-	Valor DECIMAL(10,2) NOT NULL,
-	Multa DECIMAL(10,2) NOT NULL,
-	Duracao INT NOT NULL
+    Multa DECIMAL(10,2) NOT NULL,
+    Duracao INT NOT NULL,
+	Valor DECIMAL(10,2) NOT NULL	
 );
-
--- FLOAT de valor -> DECIMAL
 
 ALTER TABLE Plano ADD CONSTRAINT PK_PLANO PRIMARY KEY (Id);
 
 
 -- ##########################################################################
 CREATE TABLE Professor(
-	
-	Nome VARCHAR(50) NOT NULL,
 	Cref VARCHAR(10) NOT NULL,
-	Cpf VARCHAR(11)  NOT NULL,
-	Telefone VARCHAR(11)  NOT NULL,
-	Salario DECIMAL(10,2)  NOT NULL,
-	Endereco VARCHAR(45) NOT NULL,
+    Cpf VARCHAR(11)  NOT NULL,
+    Especialidade VARCHAR(30) NOT NULL,
+    Rg VARCHAR(7) NOT NULL,
+    Data_nascimento DATE NOT NULL,
+	Nome VARCHAR(50) NOT NULL,
+    Carga_Horaria INT NOT NULL,
+    Salario DECIMAL(10,2)  NOT NULL,
 	Sexo CHAR(1) NOT NULL,
-	Rg INT NOT NULL,
-	Especialidade VARCHAR(30) NOT NULL,
-	Carga_Horaria INT NOT NULL,
-	Data_nascimento DATE NOT NULL
+    Telefone VARCHAR(11)  NOT NULL
 );
-
--- FLOAT -> DECIMAL
--- TIME -> INT
-
 
 ALTER TABLE Professor ADD CONSTRAINT PK_PROFESSOR PRIMARY KEY (Cref);
 
@@ -63,7 +52,7 @@ ALTER TABLE Professor ADD CONSTRAINT PK_PROFESSOR PRIMARY KEY (Cref);
 
 CREATE TABLE Fornecedor(
 	Cnpj VARCHAR(20) NOT NULL,
-	Nome_empresa VARCHAR(200) NOT NULL,
+	Nome_empresa VARCHAR(20) NOT NULL,
 	Telefone VARCHAR(11) NOT NULL
 );
 
@@ -75,38 +64,32 @@ ALTER TABLE Fornecedor ADD CONSTRAINT PK_FORNECEDOR PRIMARY KEY (Cnpj);
 -- ##########################################################################
 
 CREATE TABLE Aluno(
+	Cpf VARCHAR(11) NOT NULL,
+    Rg VARCHAR(7) NOT NULL,
+    Data_nascimento DATE NOT NULL,
 	Nome VARCHAR(50) NOT NULL,
+    Sexo CHAR(1) NOT NULL,
 	Telefone VARCHAR(11) NOT NULL,
-	Matricula INT NOT null,
-	Cpf CHAR(11) NOT NULL,
-	Status VARCHAR(10) NOT NULL,
-	Endereco VARCHAR(45) NOT NULL,
-	Sexo CHAR(1) NOT NULL,
-	Rg INT NOT NULL,
-	PLANO_id INT NOT NULL,
+	Status CHAR(1) NOT NULL,
 	FOTO BINARY(23)
 );
 
 
-ALTER TABLE Aluno ADD CONSTRAINT PK_ALUNO PRIMARY KEY(Matricula);
-ALTER TABLE Aluno ADD CONSTRAINT FK_ALUNO_PLANO FOREIGN KEY (Plano_id) REFERENCES Plano(Id);
-
-
+ALTER TABLE Aluno ADD CONSTRAINT PK_ALUNO PRIMARY KEY(Cpf);
 
 -- ##########################################################################
 
 CREATE TABLE Contrato(
 	Numero INT NOT NULL,
-	Data DATE NOT NULL,
+	Data_inicio DATE NOT NULL,
+    Aluno_cpf VARCHAR(11) NOT NULL,
 	Gerente_cpf VARCHAR(11) NOT NULL,
 	Plano_id INT NOT NULL
 );
 
 
--- Já tem identificador, precisa de Plano_id como chave
--- Contrato não sabe quem é o aluno.
-
 ALTER TABLE Contrato ADD CONSTRAINT PK_CONTRATO PRIMARY KEY (Numero);
+ALTER TABLE Contrato ADD CONSTRAINT FK_CONTRATO_ALUNO FOREIGN KEY(Aluno_cpf) REFERENCES Aluno(cpf);
 ALTER TABLE Contrato ADD CONSTRAINT FK_CONTRATO_GERENTE FOREIGN KEY (Gerente_cpf) REFERENCES Gerente(Cpf);
 ALTER TABLE Contrato ADD CONSTRAINT FK_CONTRATO_PLANO FOREIGN KEY (Plano_id) REFERENCES Plano(Id);
 
@@ -114,66 +97,69 @@ ALTER TABLE Contrato ADD CONSTRAINT FK_CONTRATO_PLANO FOREIGN KEY (Plano_id) REF
 -- ##########################################################################
 
 CREATE TABLE Avaliacao_fisica(
-	Avaliacao_biceps DECIMAL(10,2) NOT NULL,
-	Avaliacao_torax DECIMAL(10,2) NOT NULL,
-	Avaliacao_triceps DECIMAL(10,2) NOT NULL,
-	Avaliacao_cintura DECIMAL(10,2) NOT NULL,
-	Avaliacao_perna DECIMAL(10,2) NOT NULL,
-	Avaliacao_panturrilha DECIMAL(10,2) NOT NULL,
-	Body_fat DECIMAL(10,2) NOT NULL,
-	Peso DECIMAL(10,2) NOT NULL,
-	Altura DECIMAL(10,2) NOT NULL,
+	Data DATE NOT NULL,
+	Biceps DECIMAL(10,2) NOT NULL,
+    Panturrilha DECIMAL(10,2) NOT NULL,
+	Torax DECIMAL(10,2) NOT NULL,
+	Triceps DECIMAL(10,2) NOT NULL,
+	Cintura DECIMAL(10,2) NOT NULL,
+	Perna DECIMAL(10,2) NOT NULL,
 	Imc DECIMAL(10,2) NOT NULL,
-	Aluno_matricula INT NOT NULL,
-	Professor_cref VARCHAR(10) NOT NULL
+    Altura DECIMAL(10,2) NOT NULL,
+    Peso DECIMAL(10,2) NOT NULL,
+    Peso_magro DECIMAL(10,2) NOT NULL,
+	Body_fat DECIMAL(10,2) NOT NULL,
+	Professor_cref VARCHAR(10) NOT NULL,
+    Aluno_cpf VARCHAR(11) NOT NULL
 );
 
 
-ALTER TABLE Avaliacao_fisica ADD CONSTRAINT PKS_AVALIACAO UNIQUE (Aluno_matricula,Professor_cref);
-ALTER TABLE Avaliacao_fisica ADD CONSTRAINT FK_AVALIACAO_ALUNO FOREIGN KEY (Aluno_matricula) REFERENCES Aluno(Matricula);
-ALTER TABLE Avaliacao_fisica ADD CONSTRAINT FK_AVALIACAO_PROFESSOR FOREIGN KEY (Professor_cref) REFERENCES Professor(Cref);
+ALTER TABLE Avaliacao_fisica ADD CONSTRAINT PKs_AVALIACAO UNIQUE(Data,Professor_cref,Aluno_cpf);
+ALTER TABLE Avaliacao_fisica ADD CONSTRAINT FK_AVALIACAO_PROFESSOR FOREIGN KEY(Professor_cref) REFERENCES Professor(cref);
+ALTER TABLE Avaliacao_fisica ADD CONSTRAINT FK_AVALIACAO_ALUNO FOREIGN KEY(Aluno_cpf) REFERENCES Aluno(cpf);
 
 
 -- ##########################################################################
 
 CREATE TABLE Treino(
+	Data DATE NOT NULL,
 	Duracao INT NOT NULL,
-	Data_inicio DATE NOT NULL,
 	Professor_cref VARCHAR(10) NOT NULL,
-	Aluno_matricula INT NOT NULL
+	Aluno_cpf VARCHAR(11) NOT NULL
 );
-
-
-
-
--- Trocado Datetime para Date
--- Data_inicio colocado como chave
-ALTER TABLE Treino ADD CONSTRAINT PKS_TREINO UNIQUE (Data_inicio,Aluno_matricula,Professor_cref);
-ALTER TABLE Treino ADD CONSTRAINT FK_TREINO_PROFESSOR FOREIGN KEY (Professor_cref) REFERENCES Professor(Cref);
-ALTER TABLE Treino ADD CONSTRAINT FK_TREINO_ALUNO FOREIGN KEY (Aluno_matricula) REFERENCES Aluno(Matricula);
+	
+ALTER TABLE Treino ADD CONSTRAINT PKS_TREINO UNIQUE (Data,Professor_cref,Aluno_cpf);
+ALTER TABLE Treino ADD CONSTRAINT FK_TREINO_PROFESSOR FOREIGN KEY(Professor_cref) REFERENCES Professor(cref);
+ALTER TABLE Treino ADD CONSTRAINT FK_TREINO_ALUNO FOREIGN KEY(Aluno_cpf) REFERENCES Aluno(cpf);
 
 
 
 -- ##########################################################################
 
+CREATE TABLE Modelo_equipamento(
+	Nome VARCHAR(30) NOT NULL
+);
+
+ALTER TABLE Modelo_equipamento ADD CONSTRAINT PK_MODELO PRIMARY KEY(Nome);
+
+-- ##########################################################################
 
 CREATE TABLE Exercicio(
 	Id INT NOT NULL,
 	Series INT NOT NULL,
 	Repeticoes INT NOT NULL,
-	Peso INT
-
+    Nome VARCHAR(50) NOT NULL,
+    Modelo_equipamento_nome VARCHAR(30) NOT NULL,
+    Treino_data DATE NOT NULL,
+    Treino_professor_cref VARCHAR(10) NOT NULL,
+    Treino_aluno_cpf VARCHAR(11) NOT NULL    
 );
--- incompleto, sem ligação com treino
--- peso considerado opcional
-
--- duvida:
--- tem id, precisa de treino?
-
-
-
 
 ALTER TABLE Exercicio ADD CONSTRAINT PK_EXERCICIO PRIMARY KEY(Id);
+ALTER TABLE Exercicio ADD CONSTRAINT FK_EXERCICIO_MODELO FOREIGN KEY(Modelo_equipamento_nome) REFERENCES Modelo_equipamento(Nome);
+ALTER TABLE Exercicio ADD CONSTRAINT FK_EXERCICIO_DATA FOREIGN KEY(Treino_data) REFERENCES Treino(Data);
+ALTER TABLE Exercicio ADD CONSTRAINT FK_EXERCICIO_CREF FOREIGN KEY(Treino_professor_cref) REFERENCES Treino(Professor_cref);
+ALTER TABLE Exercicio ADD CONSTRAINT FK_EXERCICIO_CPF FOREIGN KEY(Treino_aluno_cpf) REFERENCES Treino(Aluno_cpf);
 
 
 
@@ -183,28 +169,15 @@ ALTER TABLE Exercicio ADD CONSTRAINT PK_EXERCICIO PRIMARY KEY(Id);
 CREATE TABLE Equipamento(
 	Id INT NOT NULL,
 	Marca VARCHAR(10) NOT NULL,
-	Peso INT,
-	Fornecedor_cnpj VARCHAR(20) NOT NULL	
+    Modelo_equipamento_nome VARCHAR(30) NOT NULL,
+	Fornecedor_cnpj VARCHAR(20) NOT NULL
 );
 
 ALTER TABLE Equipamento ADD CONSTRAINT PK_EQUIPAMENTO PRIMARY KEY(Id);
 ALTER TABLE Equipamento ADD CONSTRAINT FK_EQUIPAMENTO_FORNECEDOR FOREIGN KEY (Fornecedor_cnpj) REFERENCES Fornecedor(Cnpj);
-
--- peso considerado opcional
-
+ALTER TABLE Equipamento ADD CONSTRAINT FK_EQUIPAMENTO_MODELO FOREIGN KEY(Modelo_equipamento_nome) REFERENCES Modelo_equipamento(Nome);
 
 -- ##########################################################################
-
-
-CREATE TABLE Exercicio_equipamento(
-	Exercicio_id INT NOT NULL,
-	Equipamento_id INT NOT NULL
-);
-
-
-ALTER TABLE Exercicio_equipamento ADD CONSTRAINT PKS_EXERCICIO_EQUIPAMENTO UNIQUE (Exercicio_id,Equipamento_id);
-ALTER TABLE Exercicio_equipamento ADD CONSTRAINT FK_EXERCICIO_EQUIPAMENTO_1 FOREIGN KEY (Exercicio_id) REFERENCES Exercicio(Id);
-ALTER TABLE Exercicio_equipamento ADD CONSTRAINT FK_EXERCICIO_EQUIPAMENTO_2 FOREIGN KEY (Equipamento_id) REFERENCES Equipamento(Id);
 
 
 
@@ -217,7 +190,6 @@ DESC Professor;
 DESC Fornecedor;
 DESC Equipamento;
 DESC Exercicio;
-DESC Exercicio_equipamento;
 DESC Aluno;
 DESC Avaliacao_fisica;
 DESC Treino;
