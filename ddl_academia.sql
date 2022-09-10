@@ -36,7 +36,7 @@ CREATE TABLE Professor(
 	Cref VARCHAR(10) NOT NULL,
     Cpf VARCHAR(11)  NOT NULL,
     Especialidade VARCHAR(30) NOT NULL,
-    Rg VARCHAR(7) NOT NULL,
+    Rg VARCHAR(13) NOT NULL,
     Data_nascimento DATE NOT NULL,
 	Nome VARCHAR(50) NOT NULL,
     Carga_Horaria INT NOT NULL,
@@ -65,13 +65,13 @@ ALTER TABLE Fornecedor ADD CONSTRAINT PK_FORNECEDOR PRIMARY KEY (Cnpj);
 
 CREATE TABLE Aluno(
 	Cpf VARCHAR(11) NOT NULL,
-    Rg VARCHAR(7) NOT NULL,
+    Rg VARCHAR(13) NOT NULL,
     Data_nascimento DATE NOT NULL,
 	Nome VARCHAR(50) NOT NULL,
     Sexo CHAR(1) NOT NULL,
 	Telefone VARCHAR(11) NOT NULL,
 	Status CHAR(1) NOT NULL,
-	FOTO BINARY(23)
+	FOTO BLOB
 );
 
 
@@ -193,3 +193,4 @@ DESC Exercicio;
 DESC Aluno;
 DESC Avaliacao_fisica;
 DESC Treino;
+DESC Modelo_equipamento;

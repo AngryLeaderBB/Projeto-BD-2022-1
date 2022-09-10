@@ -50,7 +50,7 @@ public class Plano extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Valor", "Duração", "Multa"
+                "ID", "Multa", "Duração", "Valor"
             }
         ) {
             Class[] types = new Class [] {
