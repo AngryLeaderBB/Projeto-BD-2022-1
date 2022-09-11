@@ -71,4 +71,22 @@ public class ModeloEquipamentoDao {
             GeradorConexao.close(conn, stmt, rs);
         }
     }
+    
+    public void delete(ModeloEquipamento m){
+        Connection conn = GeradorConexao.getConnection();
+        PreparedStatement stmt = null;
+
+        try{
+            stmt = conn.prepareStatement("DELETE FROM modelo_equipamento WHERE Nome = ?");
+            stmt.setString(1,m.getNome());
+
+            int rowsUpdated = stmt.executeUpdate();
+            System.out.println("rowsUpdated = " + rowsUpdated);
+
+        } catch (SQLException ex){
+            throw new RuntimeException("Erro na remoção",ex);
+        } finally {
+            GeradorConexao.close(conn,stmt);
+        }
+    }
 }

@@ -6,7 +6,7 @@ import java.sql.*;
 public class GeradorConexao {
     private static final String URL = "jdbc:mysql://localhost:3306/academia";
     private static final String USER = "root";
-    private static final String SENHA = "projetobd2022";
+    private static final String SENHA = "";
 
     public static Connection getConnection(){
         Connection conn = null;
