@@ -4,10 +4,15 @@
  */
 package projetobd.telas;
 
+import java.awt.Image;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import static java.lang.String.valueOf;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import projetobd.dao.AlunoDao;
@@ -28,7 +33,6 @@ public class AlunoTela extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         jFormattedTextField1.setDocument(new JTextFieldLimit(11));
-        jFormattedTextField2.setDocument(new JTextFieldLimit(7));
         jFormattedTextField4.setDocument(new JTextFieldLimit(50));
         jFormattedTextField5.setDocument(new JTextFieldLimit(11));
         update();
@@ -37,13 +41,13 @@ public class AlunoTela extends javax.swing.JFrame {
     private void update(){
         listaAluno = alunoDao.findAll();
         
-        DefaultTableModel modelo = new DefaultTableModel(new Object[] {"CPF",
-            "RG", "Data Nascimento", "Nome", "Sexo", "Telefone"
+        DefaultTableModel modelo = new DefaultTableModel(new Object[] {"CPF"
+                , "Data Nascimento", "Nome", "Sexo", "Telefone"
                 , "Status"},0);
         
         for (int i = 0; i < listaAluno.size(); i++){
             Aluno modeloAux = listaAluno.get(i);
-            Object linha[] = new Object[] {modeloAux.getCpf(), modeloAux.getRg()
+            Object linha[] = new Object[] {modeloAux.getCpf()
             , modeloAux.getDataNascimento(), modeloAux.getNome(),
             modeloAux.getSexo(), modeloAux.getTelefone(), modeloAux.getStatus()};
             
@@ -71,11 +75,9 @@ public class AlunoTela extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jFormattedTextField1 = new javax.swing.JFormattedTextField();
-        jFormattedTextField2 = new javax.swing.JFormattedTextField();
         jFormattedTextField4 = new javax.swing.JFormattedTextField();
         jLabel5 = new javax.swing.JLabel();
         jRadioButton1 = new javax.swing.JRadioButton();
@@ -86,6 +88,8 @@ public class AlunoTela extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jRadioButton3 = new javax.swing.JRadioButton();
         jRadioButton4 = new javax.swing.JRadioButton();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -137,15 +141,11 @@ public class AlunoTela extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("RG");
-
         jLabel3.setText("Nome");
 
         jLabel4.setText("Status");
 
         jFormattedTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-
-        jFormattedTextField2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         jFormattedTextField4.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jFormattedTextField4.setToolTipText("");
@@ -187,23 +187,13 @@ public class AlunoTela extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jFormattedTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton1)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton2)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton3))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -225,8 +215,14 @@ public class AlunoTela extends javax.swing.JFrame {
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel9)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jFormattedTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                .addGap(0, 17, Short.MAX_VALUE))
+                                        .addComponent(jFormattedTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jButton1)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton2)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton3)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -236,16 +232,15 @@ public class AlunoTela extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
-                            .addComponent(jLabel2)
                             .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel5)
+                                .addComponent(jRadioButton1)
+                                .addComponent(jRadioButton2)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(jFormattedTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5)
-                            .addComponent(jRadioButton1)
-                            .addComponent(jRadioButton2)))
+                            .addComponent(jFormattedTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
@@ -253,18 +248,36 @@ public class AlunoTela extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jFormattedTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jRadioButton3)
-                    .addComponent(jRadioButton4))
-                .addGap(18, 18, 18)
+                            .addComponent(jLabel7)))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel4)
+                        .addComponent(jRadioButton3)
+                        .addComponent(jRadioButton4)))
+                .addGap(33, 33, 33)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
                     .addComponent(jButton3))
                 .addContainerGap(23, Short.MAX_VALUE))
+        );
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Foto"));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(108, 108, 108))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -276,15 +289,22 @@ public class AlunoTela extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -293,7 +313,6 @@ public class AlunoTela extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (jFormattedTextField1.getText().equals("")||
-            jFormattedTextField2.getText().equals("")||
             jFormattedTextField3.getText().equals("    -  -  ")||
             jFormattedTextField4.getText().equals("")||
             jFormattedTextField5.getText().equals("")||
@@ -308,22 +327,29 @@ public class AlunoTela extends javax.swing.JFrame {
         else{
         
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            try{
             LocalDate data = LocalDate.parse(jFormattedTextField3.getText(), formatter);
             
             String sexo = jRadioButton1.isSelected()? "M":"F";
             String status = jRadioButton3.isSelected()? "A":"I";
             
-            Aluno aluno = new Aluno(jFormattedTextField1.getText(), 
-                    jFormattedTextField2.getText(), data, 
+            Aluno aluno = new Aluno(jFormattedTextField1.getText()
+                    , data, 
                     jFormattedTextField4.getText(), sexo,
                     jFormattedTextField5.getText(), status);
+            
             alunoDao.create(aluno);
+            }
+            catch (Exception ex) {
+        
+            JOptionPane.showMessageDialog(null,ex.getMessage(), "Erro",
+                    JOptionPane.PLAIN_MESSAGE);
+        }
             update();
 
         }
         
         jFormattedTextField1.setText("");
-        jFormattedTextField2.setText("");
         jFormattedTextField3.setText("");
         jFormattedTextField4.setText("");
         jFormattedTextField5.setText("");
@@ -333,6 +359,29 @@ public class AlunoTela extends javax.swing.JFrame {
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
         String id = valueOf(listaAluno.get(jTable2.getSelectedRow()).getCpf());
         jFormattedTextField1.setText(id);
+       
+        //System.out.println(alunoDao.getFoto(id));
+        InputStream input = alunoDao.getFoto(id);
+        File theFile = new File("foto.png");
+        FileOutputStream output;
+        try{
+            output = new FileOutputStream(theFile);
+            byte buffer[] = new byte[1024];
+            while (input.read(buffer)>0){
+                output.write(buffer);
+            }
+            String path = theFile.getAbsolutePath();
+            ImageIcon myImage = new ImageIcon(path);
+            Image img = myImage.getImage();
+            Image newImg = img.getScaledInstance(jLabel6.getWidth(),
+                    jLabel6.getHeight(),Image.SCALE_SMOOTH);
+            
+            jLabel6.setIcon(new ImageIcon(newImg));
+        }
+        catch (Exception ex){
+            jLabel6.setIcon(null);
+
+        }
     }//GEN-LAST:event_jTable2MouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -341,7 +390,6 @@ public class AlunoTela extends javax.swing.JFrame {
         if (valorSelecionado != -1){
             
             if (jFormattedTextField1.getText().equals("")||
-            jFormattedTextField2.getText().equals("")||
             jFormattedTextField3.getText().equals("    -  -  ")||
             jFormattedTextField4.getText().equals("")||
             jFormattedTextField5.getText().equals("")||
@@ -357,17 +405,25 @@ public class AlunoTela extends javax.swing.JFrame {
             else{
                 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            try{
             LocalDate data = LocalDate.parse(jFormattedTextField3.getText(), formatter);
             
             String sexo = jRadioButton1.isSelected()? "M":"F";
             String status = jRadioButton3.isSelected()? "A":"I";
             
-            Aluno aluno = new Aluno(jFormattedTextField1.getText(), 
-                    jFormattedTextField2.getText(), data, 
+            Aluno aluno = new Aluno(jFormattedTextField1.getText()
+                    , data, 
                     jFormattedTextField4.getText(), sexo,
                     jFormattedTextField5.getText(), status);
+            
             alunoDao.update(aluno);
-       
+            }
+            catch (Exception ex) {
+        
+            JOptionPane.showMessageDialog(null,ex.getMessage(), "Erro",
+                    JOptionPane.PLAIN_MESSAGE);
+        }
+            
             }
     
         }
@@ -378,9 +434,16 @@ public class AlunoTela extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         int valorSelecionado = jTable2.getSelectedRow();
         
+        try{
         if (valorSelecionado != -1){
             
            alunoDao.delete(listaAluno.get(jTable2.getSelectedRow()));
+        }
+        }
+        catch (Exception ex) {
+        
+            JOptionPane.showMessageDialog(null,ex.getMessage(), "Erro",
+                    JOptionPane.PLAIN_MESSAGE);
         }
         
         update();
@@ -429,18 +492,18 @@ public class AlunoTela extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JFormattedTextField jFormattedTextField1;
-    private javax.swing.JFormattedTextField jFormattedTextField2;
     private javax.swing.JFormattedTextField jFormattedTextField3;
     private javax.swing.JFormattedTextField jFormattedTextField4;
     private javax.swing.JFormattedTextField jFormattedTextField5;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioButton3;

@@ -222,7 +222,14 @@ public class FornecedorTela extends javax.swing.JFrame {
            
             Fornecedor forne = new Fornecedor(jFormattedTextField1.getText(),
             jTextField3.getText(), jFormattedTextField2.getText());
+            try{
             forDao.create(forne);
+            }
+            catch (Exception ex) {
+        
+            JOptionPane.showMessageDialog(null,ex.getMessage(), "Erro",
+                    JOptionPane.PLAIN_MESSAGE);
+        }
             update();
         }
 
@@ -254,7 +261,14 @@ public class FornecedorTela extends javax.swing.JFrame {
                 
             Fornecedor forne = new Fornecedor(jFormattedTextField1.getText(),
             jTextField3.getText(), jFormattedTextField2.getText());
+            try{
             forDao.update(forne);
+            }
+            catch (Exception ex) {
+        
+            JOptionPane.showMessageDialog(null,ex.getMessage(), "Erro",
+                    JOptionPane.PLAIN_MESSAGE);
+        }
             }
     
         }
@@ -266,8 +280,14 @@ public class FornecedorTela extends javax.swing.JFrame {
         int valorSelecionado = jTable2.getSelectedRow();
         
         if (valorSelecionado != -1){
-            
+           try{ 
            forDao.delete(listaFornecedor.get(jTable2.getSelectedRow()));
+           }
+           catch (Exception ex) {
+        
+            JOptionPane.showMessageDialog(null,ex.getMessage(), "Erro",
+                    JOptionPane.PLAIN_MESSAGE);
+        }
         }
         
         update();

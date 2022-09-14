@@ -250,13 +250,21 @@ public class ContratoTela extends javax.swing.JFrame {
             
             int numero = parseInt(jFormattedTextField1.getText());
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            try{
             LocalDate data = LocalDate.parse(jFormattedTextField2.getText(), formatter);
             String aluno = valueOf(jComboBox3.getSelectedItem());
             String cpf = valueOf(jComboBox1.getSelectedItem());
             int plano = parseInt(valueOf(jComboBox2.getSelectedItem()));
             
             Contrato contrato = new Contrato(numero, data, aluno, cpf, plano);
+            
             contratoDao.create(contrato);
+            }
+            catch (Exception ex) {
+        
+            JOptionPane.showMessageDialog(null,ex.getMessage(), "Erro",
+                    JOptionPane.PLAIN_MESSAGE);
+        }
             update();
             
         }
@@ -289,14 +297,21 @@ public class ContratoTela extends javax.swing.JFrame {
  
             int numero = parseInt(jFormattedTextField1.getText());
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            try{
             LocalDate data = LocalDate.parse(jFormattedTextField2.getText(), formatter);
             String aluno = valueOf(jComboBox3.getSelectedItem());
             String cpf = valueOf(jComboBox1.getSelectedItem());
             int plano = parseInt(valueOf(jComboBox2.getSelectedItem()));
             
             Contrato contrato = new Contrato(numero, data, aluno, cpf, plano);
-            System.out.println(contrato);
+            
             contratoDao.update(contrato);
+            }
+            catch (Exception ex) {
+        
+            JOptionPane.showMessageDialog(null,ex.getMessage(), "Erro",
+                    JOptionPane.PLAIN_MESSAGE);
+        }
             }
     
         }
@@ -310,8 +325,14 @@ public class ContratoTela extends javax.swing.JFrame {
         int valorSelecionado = jTable2.getSelectedRow();
         
         if (valorSelecionado != -1){
-            
+           try{
            contratoDao.delete(listaContrato.get(jTable2.getSelectedRow()));
+           }
+           catch (Exception ex) {
+        
+            JOptionPane.showMessageDialog(null,ex.getMessage(), "Erro",
+                    JOptionPane.PLAIN_MESSAGE);
+        }
         }
         
         update();

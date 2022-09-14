@@ -396,6 +396,7 @@ public class AvaliacaoFisicaTela extends javax.swing.JFrame {
         else{
             
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            try{
             LocalDate data = LocalDate.parse(jFormattedTextField12.getText(), formatter);
             
             double biceps = toFloat(jFormattedTextField1.getText()),
@@ -417,7 +418,14 @@ public class AvaliacaoFisicaTela extends javax.swing.JFrame {
             AvaliacaoFisica ava = new AvaliacaoFisica(data, biceps, panturilha,
             torax, triceps, cintura, perna, imc, altura, peso, pesoMagro,
             bodyFat, professor, aluno);
+            
             avaDao.create(ava);
+            }
+            catch (Exception ex) {
+        
+            JOptionPane.showMessageDialog(null,ex.getMessage(), "Erro",
+                    JOptionPane.PLAIN_MESSAGE);
+        }
             update();
             
         }
@@ -482,6 +490,7 @@ public class AvaliacaoFisicaTela extends javax.swing.JFrame {
             else{
  
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            try{
             LocalDate data = LocalDate.parse(jFormattedTextField12.getText(), formatter);
             
             double biceps = toFloat(jFormattedTextField1.getText()),
@@ -503,7 +512,14 @@ public class AvaliacaoFisicaTela extends javax.swing.JFrame {
             AvaliacaoFisica ava = new AvaliacaoFisica(data, biceps, panturilha,
             torax, triceps, cintura, perna, imc, altura, peso, pesoMagro,
             bodyFat, professor, aluno);
+            
             avaDao.update(ava);
+            }
+            catch (Exception ex) {
+        
+            JOptionPane.showMessageDialog(null,ex.getMessage(), "Erro",
+                    JOptionPane.PLAIN_MESSAGE);
+        }
             }
     
         }
@@ -527,8 +543,15 @@ public class AvaliacaoFisicaTela extends javax.swing.JFrame {
         int valorSelecionado = jTable2.getSelectedRow();
         
         if (valorSelecionado != -1){
-            
+           
+           try{
            avaDao.delete(listaAvaliacao.get(jTable2.getSelectedRow()));
+           }
+           catch (Exception ex) {
+        
+            JOptionPane.showMessageDialog(null,ex.getMessage(), "Erro",
+                    JOptionPane.PLAIN_MESSAGE);
+        }
         }
         
         update();

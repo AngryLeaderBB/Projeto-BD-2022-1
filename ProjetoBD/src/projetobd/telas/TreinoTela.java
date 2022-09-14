@@ -225,13 +225,22 @@ public class TreinoTela extends javax.swing.JFrame {
         else{
             
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            try{
             LocalDate data = LocalDate.parse(jFormattedTextField1.getText(), formatter);
             int duracao = parseInt(jFormattedTextField2.getText());
             String professor = valueOf(jComboBox1.getSelectedItem());
             String aluno = valueOf(jComboBox2.getSelectedItem());
             
+            
             Treino contrato = new Treino(data, duracao, professor, aluno);
+            
             treinoDao.create(contrato);
+            }
+            catch (Exception ex) {
+        
+            JOptionPane.showMessageDialog(null,ex.getMessage(), "Erro",
+                    JOptionPane.PLAIN_MESSAGE);
+        }
             update();
             
         }
@@ -257,6 +266,7 @@ public class TreinoTela extends javax.swing.JFrame {
             else{
  
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            try{
             LocalDate data = LocalDate.parse(jFormattedTextField1.getText(), formatter);
             int duracao = parseInt(jFormattedTextField2.getText());
             String professor = valueOf(jComboBox1.getSelectedItem());
@@ -264,6 +274,12 @@ public class TreinoTela extends javax.swing.JFrame {
             
             Treino contrato = new Treino(data, duracao, professor, aluno);
             treinoDao.update(contrato);
+            }
+            catch (Exception ex) {
+        
+            JOptionPane.showMessageDialog(null,ex.getMessage(), "Erro",
+                    JOptionPane.PLAIN_MESSAGE);
+        }
             }
     
         }
@@ -297,8 +313,14 @@ public class TreinoTela extends javax.swing.JFrame {
         int valorSelecionado = jTable2.getSelectedRow();
         
         if (valorSelecionado != -1){
-            
+           try{
            treinoDao.delete(listaTreino.get(jTable2.getSelectedRow()));
+           }
+           catch (Exception ex) {
+        
+            JOptionPane.showMessageDialog(null,ex.getMessage(), "Erro",
+                    JOptionPane.PLAIN_MESSAGE);
+        }
         }
         
         update();

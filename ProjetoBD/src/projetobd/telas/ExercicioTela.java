@@ -383,7 +383,14 @@ public class ExercicioTela extends javax.swing.JFrame {
             Exercicio exer = new Exercicio(id, series, repet, 
             jFormattedTextField4.getText(), modelo, treino, professor, aluno);
             
+            try{
             exerDao.create(exer);
+            }
+            catch (Exception ex) {
+        
+            JOptionPane.showMessageDialog(null,ex.getMessage(), "Erro",
+                    JOptionPane.PLAIN_MESSAGE);
+        }
             update();
             
         }
@@ -438,8 +445,14 @@ public class ExercicioTela extends javax.swing.JFrame {
             
             Exercicio exer = new Exercicio(id, series, repet, 
             jFormattedTextField4.getText(), modelo, treino, professor, aluno);
-            
+            try{
             exerDao.update(exer);
+            }
+            catch (Exception ex) {
+        
+            JOptionPane.showMessageDialog(null,ex.getMessage(), "Erro",
+                    JOptionPane.PLAIN_MESSAGE);
+        }
             }
     
         }
@@ -455,8 +468,14 @@ public class ExercicioTela extends javax.swing.JFrame {
         int valorSelecionado = jTable2.getSelectedRow();
         
         if (valorSelecionado != -1){
-            
+           try{
            exerDao.delete(listaExercicio.get(jTable2.getSelectedRow()));
+           }
+           catch (Exception ex) {
+        
+            JOptionPane.showMessageDialog(null,ex.getMessage(), "Erro",
+                    JOptionPane.PLAIN_MESSAGE);
+        }
         }
         
         update();

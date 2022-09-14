@@ -4,7 +4,6 @@ import java.time.LocalDate;
 
 public class Aluno {
     private String cpf;
-    private String rg;
     private LocalDate dataNascimento;
     private String nome;
     private String sexo;
@@ -15,11 +14,10 @@ public class Aluno {
 
     }
 
-    public Aluno(String cpf, String rg, LocalDate dataNascimento,
+    public Aluno(String cpf, LocalDate dataNascimento,
                  String nome, String sexo, String telefone,
                  String status) {
         this.cpf = cpf;
-        this.rg = rg;
         this.dataNascimento = dataNascimento;
         this.nome = nome;
         this.sexo = sexo;
@@ -35,13 +33,6 @@ public class Aluno {
         this.cpf = cpf;
     }
 
-    public String getRg() {
-        return rg;
-    }
-
-    public void setRg(String rg) {
-        this.rg = rg;
-    }
 
     public LocalDate getDataNascimento() {
         return dataNascimento;
@@ -88,7 +79,6 @@ public class Aluno {
     public String toString() {
         return "Aluno{" +
                 "cpf='" + cpf + '\'' +
-                ", rg='" + rg + '\'' +
                 ", dataNascimento=" + dataNascimento +
                 ", nome='" + nome + '\'' +
                 ", sexo='" + sexo + '\'' +

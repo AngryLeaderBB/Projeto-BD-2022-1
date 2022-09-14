@@ -11,9 +11,7 @@ public class ProfessorMapper {
         Professor p = new Professor();
 
         p.setCref(rs.getString("Cref"));
-        p.setCpf(rs.getString("Cpf"));
         p.setEspecialidade(rs.getString("Especialidade"));
-        p.setRg(rs.getString("Rg"));
         p.setDataNascimento(rs.getDate("Data_nascimento").toLocalDate());
         p.setNome(rs.getString("Nome"));
         p.setCargaHoraria(rs.getInt("Carga_horaria"));

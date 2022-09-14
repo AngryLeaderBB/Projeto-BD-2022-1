@@ -155,7 +155,14 @@ public class ModeloTela extends javax.swing.JFrame {
         else{
         
             ModeloEquipamento modelo = new ModeloEquipamento(jFormattedTextField1.getText());
+            try{
             modDao.create(modelo);
+            }
+            catch (Exception ex) {
+        
+            JOptionPane.showMessageDialog(null,ex.getMessage(), "Erro",
+                    JOptionPane.PLAIN_MESSAGE);
+        }
             
         }
         
@@ -167,7 +174,14 @@ public class ModeloTela extends javax.swing.JFrame {
         int valorSelecionado = jTable2.getSelectedRow();
         
         if (valorSelecionado != -1){
+           try{
            modDao.delete(listaModelo.get(valorSelecionado));
+           }
+           catch (Exception ex) {
+        
+            JOptionPane.showMessageDialog(null,ex.getMessage(), "Erro",
+                    JOptionPane.PLAIN_MESSAGE);
+        }
         }
         
         jFormattedTextField1.setText("");

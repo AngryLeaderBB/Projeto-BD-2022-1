@@ -242,7 +242,14 @@ public class PlanoTela extends javax.swing.JFrame {
                     .replaceAll(",", "."));
             
             Plano plano = new Plano(id, multaRecisoria, duracao, valor);
+            try{
             planoDao.create(plano);
+            }
+            catch (Exception ex) {
+        
+            JOptionPane.showMessageDialog(null,ex.getMessage(), "Erro",
+                    JOptionPane.PLAIN_MESSAGE);
+        }
         }
         
         jFormattedTextField1.setText("");
@@ -256,8 +263,14 @@ public class PlanoTela extends javax.swing.JFrame {
         int valorSelecionado = jTable2.getSelectedRow();
         
         if (valorSelecionado != -1){
-            
+           try{
            planoDao.delete(listaPlano.get(jTable2.getSelectedRow()));
+           }
+           catch (Exception ex) {
+        
+            JOptionPane.showMessageDialog(null,ex.getMessage(), "Erro",
+                    JOptionPane.PLAIN_MESSAGE);
+        }
         }
         
         update();
@@ -288,7 +301,14 @@ public class PlanoTela extends javax.swing.JFrame {
                     .replaceAll(",", "."));
             
             Plano plano = new Plano(id, multaRecisoria, duracao, valor);
+            try{
             planoDao.update(plano);
+            }
+            catch (Exception ex) {
+        
+            JOptionPane.showMessageDialog(null,ex.getMessage(), "Erro",
+                    JOptionPane.PLAIN_MESSAGE);
+        }
             }
     
         }

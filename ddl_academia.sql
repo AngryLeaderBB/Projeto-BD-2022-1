@@ -34,9 +34,7 @@ ALTER TABLE Plano ADD CONSTRAINT PK_PLANO PRIMARY KEY (Id);
 -- ##########################################################################
 CREATE TABLE Professor(
 	Cref VARCHAR(10) NOT NULL,
-    Cpf VARCHAR(11)  NOT NULL,
     Especialidade VARCHAR(30) NOT NULL,
-    Rg VARCHAR(13) NOT NULL,
     Data_nascimento DATE NOT NULL,
 	Nome VARCHAR(50) NOT NULL,
     Carga_Horaria INT NOT NULL,
@@ -65,7 +63,6 @@ ALTER TABLE Fornecedor ADD CONSTRAINT PK_FORNECEDOR PRIMARY KEY (Cnpj);
 
 CREATE TABLE Aluno(
 	Cpf VARCHAR(11) NOT NULL,
-    Rg VARCHAR(13) NOT NULL,
     Data_nascimento DATE NOT NULL,
 	Nome VARCHAR(50) NOT NULL,
     Sexo CHAR(1) NOT NULL,

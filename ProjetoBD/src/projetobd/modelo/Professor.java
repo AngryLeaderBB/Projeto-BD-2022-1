@@ -4,9 +4,7 @@ import java.time.LocalDate;
 
 public class Professor {
     private String cref;
-    private String cpf;
     private String especialidade;
-    private String rg;
     private LocalDate dataNascimento;
     private String nome;
     private int cargaHoraria;
@@ -18,13 +16,11 @@ public class Professor {
 
     }
 
-    public Professor(String cref, String cpf, String especialidade, String rg,
+    public Professor(String cref, String especialidade,
                  LocalDate dataNascimento, String nome, int cargaHoraria,
                  double salario, String sexo, String telefone) {
         this.cref = cref;
-        this.cpf = cpf;
         this.especialidade = especialidade;
-        this.rg = rg;
         this.dataNascimento = dataNascimento;
         this.nome = nome;
         this.cargaHoraria = cargaHoraria;
@@ -41,13 +37,6 @@ public class Professor {
         this.cref = cref;
     }
 
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
 
     public String getEspecialidade() {
         return especialidade;
@@ -57,13 +46,6 @@ public class Professor {
         this.especialidade = especialidade;
     }
 
-    public String getRg() {
-        return rg;
-    }
-
-    public void setRg(String rg) {
-        this.rg = rg;
-    }
 
     public LocalDate getDataNascimento() {
         return dataNascimento;
@@ -117,9 +99,7 @@ public class Professor {
     public String toString() {
         return "Professor{" +
                 "cref='" + cref + '\'' +
-                ", cpf='" + cpf + '\'' +
                 ", especialidade='" + especialidade + '\'' +
-                ", rg='" + rg + '\'' +
                 ", dataNascimento=" + dataNascimento +
                 ", nome='" + nome + '\'' +
                 ", cargaHoraria=" + cargaHoraria +

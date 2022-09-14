@@ -8,9 +8,9 @@ import java.time.LocalDate;
 public class TesteAlunoDao {
     public static void main(String[] args) {
         AlunoDao aDao = new AlunoDao();
-        Aluno a1 = new Aluno("11111111111","1111111", LocalDate.now(),"Ivo","M","33218181","A");
-        Aluno a2 = new Aluno("22222222222","2222222", LocalDate.now(),"Shakira","F","77777777","I");
-        Aluno a3 = new Aluno("33333333333","3322222", LocalDate.now(),"Madona","F","77777777","A");
+        Aluno a1 = new Aluno("11111111111", LocalDate.now(),"Ivo","M","33218181","A");
+        Aluno a2 = new Aluno("22222222222", LocalDate.now(),"Shakira","F","77777777","I");
+        Aluno a3 = new Aluno("33333333333", LocalDate.now(),"Madona","F","77777777","A");
 
 //        aDao.create(a1);
 //        aDao.create(a2);

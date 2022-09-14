@@ -110,6 +110,11 @@ public class GerenteTela extends javax.swing.JFrame {
         });
 
         jButton3.setText("Deletar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Nome");
 
@@ -281,12 +286,20 @@ public class GerenteTela extends javax.swing.JFrame {
             
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            try{
             LocalDate data = LocalDate.parse(jFormattedTextField5.getText(), formatter);
     
             Gerente gerente = new Gerente(jFormattedTextField1.getText(),
             jFormattedTextField2.getText(), salario, sexo, 
             jFormattedTextField4.getText(), data);
+            
             gerenteDao.create(gerente);
+            }
+            catch (Exception ex) {
+        
+            JOptionPane.showMessageDialog(null,ex.getMessage(), "Erro",
+                    JOptionPane.PLAIN_MESSAGE);
+        }
             update();
         }
         
@@ -328,18 +341,43 @@ public class GerenteTela extends javax.swing.JFrame {
             
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            try{
             LocalDate data = LocalDate.parse(jFormattedTextField5.getText(), formatter);
     
             Gerente gerente = new Gerente(jFormattedTextField1.getText(),
             jFormattedTextField2.getText(), salario, sexo, 
             jFormattedTextField4.getText(), data);
+            
             gerenteDao.update(gerente);
+            }
+            catch (Exception ex) {
+        
+            JOptionPane.showMessageDialog(null,ex.getMessage(), "Erro",
+                    JOptionPane.PLAIN_MESSAGE);
+        }
             }
     
         }
         
         update();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        int valorSelecionado = jTable2.getSelectedRow();
+        
+        if (valorSelecionado != -1){
+           try{ 
+           gerenteDao.delete(listaGerente.get(jTable2.getSelectedRow()));
+           }
+           catch (Exception ex) {
+        
+            JOptionPane.showMessageDialog(null,ex.getMessage(), "Erro",
+                    JOptionPane.PLAIN_MESSAGE);
+        }
+        }
+        
+        update();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -17,20 +17,18 @@ public class ProfessorDao {
 
         try{
             stmt = conn.prepareStatement("INSERT INTO professor " +
-                    "(Cref,Cpf,Especialidade,Rg,Data_nascimento,Nome," +
+                    "(Cref,Especialidade,Data_nascimento,Nome," +
                     "Carga_horaria,Salario,Sexo,Telefone)" +
-                    " VALUES(?,?,?,?,?,?,?,?,?,?)");
+                    " VALUES(?,?,?,?,?,?,?,?)");
 
             stmt.setString(1,p.getCref());
-            stmt.setString(2,p.getCpf());
-            stmt.setString(3,p.getEspecialidade());
-            stmt.setString(4,p.getRg());
-            stmt.setDate(5,Date.valueOf(p.getDataNascimento()));
-            stmt.setString(6,p.getNome());
-            stmt.setInt(7,p.getCargaHoraria());
-            stmt.setDouble(8,p.getSalario());
-            stmt.setString(9,p.getSexo());
-            stmt.setString(10,p.getTelefone());
+            stmt.setString(2,p.getEspecialidade());
+            stmt.setDate(3,Date.valueOf(p.getDataNascimento()));
+            stmt.setString(4,p.getNome());
+            stmt.setInt(5,p.getCargaHoraria());
+            stmt.setDouble(6,p.getSalario());
+            stmt.setString(7,p.getSexo());
+            stmt.setString(8,p.getTelefone());
 
             int rowsUpdated = stmt.executeUpdate();
             System.out.println("rowsUpdated = " + rowsUpdated);
@@ -88,20 +86,18 @@ public class ProfessorDao {
 
         try{
             stmt = conn.prepareStatement("UPDATE professor SET " +
-                    "Cpf = ?, Especialidade = ?, Rg = ?, Data_nascimento = ?," +
+                    "Especialidade = ?, Data_nascimento = ?," +
                     "Nome = ?, Carga_horaria = ?, Salario = ?, Sexo = ?, Telefone = ?" +
                     "WHERE Cref = ?");
 
-            stmt.setString(1,p.getCpf());
-            stmt.setString(2,p.getEspecialidade());
-            stmt.setString(3,p.getRg());
-            stmt.setDate(4,Date.valueOf(p.getDataNascimento()));
-            stmt.setString(5,p.getNome());
-            stmt.setInt(6,p.getCargaHoraria());
-            stmt.setDouble(7,p.getSalario());
-            stmt.setString(8,p.getSexo());
-            stmt.setString(9,p.getTelefone());
-            stmt.setString(10,p.getCref());
+            stmt.setString(1,p.getEspecialidade());
+            stmt.setDate(2,Date.valueOf(p.getDataNascimento()));
+            stmt.setString(3,p.getNome());
+            stmt.setInt(4,p.getCargaHoraria());
+            stmt.setDouble(5,p.getSalario());
+            stmt.setString(6,p.getSexo());
+            stmt.setString(7,p.getTelefone());
+            stmt.setString(8,p.getCref());
 
             int rowsUpdated = stmt.executeUpdate();
             System.out.println("rowsUpdated = " + rowsUpdated);

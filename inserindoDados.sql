@@ -1,21 +1,63 @@
 USE ACADEMIA;
 
-INSERT INTO aluno VALUES ("35889536200", "6422097610000", "2000-01-10", "Miguel", "M", "10363717530", "I", null);
-INSERT INTO aluno VALUES ("55585396000", "5599519560000", "2000-01-10", "Sophia", "F", "10213689030", "A", null);
-INSERT INTO aluno VALUES ("54056931700", "4755854620000", "2000-01-10", "Davi", "M", "80365561500", "A", null);
-INSERT INTO aluno VALUES ("11083944520", "8031913000000", "2000-01-10", "Alice", "F", "41583459400", "I", null);
-INSERT INTO aluno VALUES ("69512371400", "4135296000000", "2000-01-10", "Arthur", "M", "50751946300", "A", null);
-INSERT INTO aluno VALUES ("23191197600", "9177672440000", "2000-01-10", "Julia", "F", "42578840000", "I", null);
-INSERT INTO aluno VALUES ("96935501900", "8375698930000", "2000-01-10", "Pedro", "M", "14909911300", "A", null);
-INSERT INTO aluno VALUES ("37070474900", "6269982600000", "2000-01-10", "Isabella", "F", "99350419300", "I", null);
-INSERT INTO aluno VALUES ("63750196800", "9768151790000", "2000-01-10", "Gabriel", "M", "57453404700", "A", null);
-INSERT INTO aluno VALUES ("56356008900", "8020359290000", "2000-01-10", "Manuela", "F", "19572387900", "I", null);
+INSERT INTO aluno VALUES ("35889536200", "2000-01-10", "Miguel", "M", "10363717530", "I", null);
+INSERT INTO aluno VALUES ("55585396000", "2000-01-10", "Sophia", "F", "10213689030", "A", null);
+INSERT INTO aluno VALUES ("54056931700", "2000-01-10", "Davi", "M", "80365561500", "A", null);
+INSERT INTO aluno VALUES ("11083944520", "2000-01-10", "Alice", "F", "41583459400", "I", null);
+INSERT INTO aluno VALUES ("69512371400", "2000-01-10", "Arthur", "M", "50751946300", "A", null);
+INSERT INTO aluno VALUES ("23191197600", "2000-01-10", "Julia", "F", "42578840000", "I", null);
+INSERT INTO aluno VALUES ("96935501900", "2000-01-10", "Pedro", "M", "14909911300", "A", null);
+INSERT INTO aluno VALUES ("37070474900", "2000-01-10", "Isabella", "F", "99350419300", "I", null);
+INSERT INTO aluno VALUES ("63750196800", "2000-01-10", "Gabriel", "M", "57453404700", "A", null);
+INSERT INTO aluno VALUES ("56356008900", "2000-01-10", "Manuela", "F", "19572387900", "I", null);
 
-INSERT INTO professor VALUES ("6771854120", "20124671000", "Dança", "9163128060000", "2000-01-10", "Bernardo", "19", "1266.00", "M", "90647268000");
-INSERT INTO professor VALUES ("1031811801", "89769622500", "luta", "4089344290000", "2000-01-10", "Laura", "10", "1223.00", "F", "95597040000");
-INSERT INTO professor VALUES ("4843458080", "74624051300", "luta", "7708979870000", "2000-01-10", "Lucas", "17", "1527.00", "M", "11097628320");
-INSERT INTO professor VALUES ("4921429130", "36978468200", "Dança", "6785079030000", "2000-01-10", "Luiza", "10", "1516.00", "F", "79144650400");
-INSERT INTO professor VALUES ("1028070894", "23926098800", "luta", "1154778800000", "2000-01-10", "Valentina", "12", "1799.00", "F", "62219961700");
+
+UPDATE aluno
+SET foto = load_file("C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/giga.png")
+WHERE cpf = "35889536200";
+
+UPDATE aluno
+SET foto = load_file("C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/memerika.png")
+WHERE cpf = "55585396000";
+
+UPDATE aluno
+SET foto = load_file("C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/giga.png")
+WHERE cpf = "54056931700"; 
+
+UPDATE aluno
+SET foto = load_file("C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/memerika.png")
+WHERE cpf = "11083944520"; 
+
+UPDATE aluno
+SET foto = load_file("C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/giga.png")
+WHERE cpf = "69512371400"; 
+
+UPDATE aluno
+SET foto = load_file("C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/memerika.png")
+WHERE cpf = "23191197600";
+
+UPDATE aluno
+SET foto = load_file("C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/giga.png")
+WHERE cpf = "96935501900";
+
+UPDATE aluno
+SET foto = load_file("C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/memerika.png")
+WHERE cpf = "37070474900";
+
+UPDATE aluno
+SET foto = load_file("C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/giga.png")
+WHERE cpf = "63750196800";
+
+
+UPDATE aluno
+SET foto = load_file("C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/memerika.png")
+WHERE cpf = "56356008900";
+
+INSERT INTO professor VALUES ("6771854120", "Dança", "2000-01-10", "Bernardo", "19", "1266.00", "M", "90647268000");
+INSERT INTO professor VALUES ("1031811801", "luta", "2000-01-10", "Laura", "10", "1223.00", "F", "95597040000");
+INSERT INTO professor VALUES ("4843458080", "luta", "2000-01-10", "Lucas", "17", "1527.00", "M", "11097628320");
+INSERT INTO professor VALUES ("4921429130", "Dança", "2000-01-10", "Luiza", "10", "1516.00", "F", "79144650400");
+INSERT INTO professor VALUES ("1028070894", "luta", "2000-01-10", "Valentina", "12", "1799.00", "F", "62219961700");
 
 
 INSERT INTO treino VALUES ("2019-1-14", "90", "6771854120", "56356008900");

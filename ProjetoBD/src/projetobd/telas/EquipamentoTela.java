@@ -248,7 +248,14 @@ public class EquipamentoTela extends javax.swing.JFrame {
             
             Equipamento contrato = new Equipamento(id, jTextField2.getText(),
                 equipamento, fornecedor);
+            try{
             equipamentoDao.create(contrato);
+            }
+            catch (Exception ex) {
+        
+            JOptionPane.showMessageDialog(null,ex.getMessage(), "Erro",
+                    JOptionPane.PLAIN_MESSAGE);
+        }
             update();
             
         }
@@ -284,7 +291,14 @@ public class EquipamentoTela extends javax.swing.JFrame {
             
             Equipamento contrato = new Equipamento(id, jTextField2.getText(),
                 equipamento, fornecedor);
+            try{
             equipamentoDao.update(contrato);
+            }
+            catch (Exception ex) {
+        
+            JOptionPane.showMessageDialog(null,ex.getMessage(), "Erro",
+                    JOptionPane.PLAIN_MESSAGE);
+        }
             }
     
         }
@@ -298,9 +312,16 @@ public class EquipamentoTela extends javax.swing.JFrame {
         int valorSelecionado = jTable2.getSelectedRow();
         
         if (valorSelecionado != -1){
-            
+           
+           try{
            equipamentoDao.delete(listaEquipamento.get(jTable2.getSelectedRow()));
+           }
+           catch (Exception ex) {
+        
+            JOptionPane.showMessageDialog(null,ex.getMessage(), "Erro",
+                    JOptionPane.PLAIN_MESSAGE);
         }
+           }
         
         update();
     }//GEN-LAST:event_jButton3ActionPerformed
